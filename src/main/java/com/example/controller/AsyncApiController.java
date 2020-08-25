@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ConfigAsync;
 import com.example.model.AsyncApiModel;
 
 @RestController
@@ -23,9 +24,10 @@ public class AsyncApiController implements Serializable{
 	private AsyncApiModel methods;
 	
 	@RequestMapping(value="/hello-world-async", method = RequestMethod.GET)
-	public String getApiv1(@RequestHeader String nameUser,@RequestHeader boolean isMen) throws Exception {
+	public Object getApiv1(@RequestHeader String nameUser,@RequestHeader boolean isMen) throws Exception {
 		
-		log.info("Iniciando proceso de api Rest");
+		log.info("INICIANDO PROCESO DE API REST");
+		ConfigAsync.numPetitionCount++;
 		
 		return methods.getRestModel(nameUser,isMen);
 		

@@ -19,16 +19,18 @@ public class ConfigAsync extends WsConfigurerAdapter implements Serializable {
 	
 	private static final long serialVersionUID = 1955677970876416417L;
 	private static Logger log = LoggerFactory.getLogger(AsyncApiModel.class);
+	
+	public static int numPetitionCount = 0;
 
 	@Bean(name = "asyncExecutor")
 	public TaskExecutor asyncExecutor() {
 		
-		log.info("Carga de Beam de configuración Asincronos");
+		log.info("CARGA DE BEAM DE CONFIGURACIÓN ASINCRONOS");
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setCorePoolSize(3);
 		executor.setMaxPoolSize(3);
 		executor.setQueueCapacity(100);
-		executor.setThreadNamePrefix("AsynchThread-");
+		executor.setThreadNamePrefix("ASYNCHTHREAD-");
 		executor.initialize();
 		return executor;
 	}

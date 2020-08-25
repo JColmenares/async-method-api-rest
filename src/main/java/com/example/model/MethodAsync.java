@@ -16,27 +16,32 @@ public class MethodAsync implements Serializable{
 	private static Logger log = LoggerFactory.getLogger(MethodAsync.class);
 	
 	@Async("asyncExecutor")
-	public void processAsync() throws Exception {
+	public void processAsync(int numPetitionCount) throws Exception {
 		
-		log.info("Inicio del Modelo Asincrono: "+ ConfigAsync.getNameMethod());
+		log.info("INICIO DEL MODELO ASINCRONO: "+ ConfigAsync.getNameMethod());
 		
-		Thread.sleep(5000);
-		StringBuilder sms = new StringBuilder();
-		sms.append("Ejecutandose");
-		
-		int time = 20;
-		
-		for (int i = 0; i <= time; i++) {
+		try {
+			Thread.sleep(5000);
+			StringBuilder sms = new StringBuilder();
+			sms.append("PETICION ");//
+			sms.append(numPetitionCount);
+			sms.append("- EJECUTANDOSE");
+			int time = 20;
 			
-			sms.append(".");
-			Thread.sleep(1000);
+			for (int i = 0; i <= time; i++) {
+				
+				sms.append(".");
+				Thread.sleep(1000);
+				log.info(sms.toString());
+				
+			}
+			sms.append("PROCESO FINALIZADO"); 
 			log.info(sms.toString());
-			
+		} catch (Exception e) {
+			log.info("EXCEPTION: ERROR EN EL PROCESO ASINCRONO");
 		}
-		sms.append("PROCESO FINALIZADO"); 
-		log.info(sms.toString());
 		
-		log.info("Fin del Modelo Asincrono: "+ ConfigAsync.getNameMethod());
+		log.info("FIN DEL MODELO ASINCRONO: "+ ConfigAsync.getNameMethod());
 	}
 
 }

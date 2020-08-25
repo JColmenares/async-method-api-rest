@@ -19,25 +19,34 @@ public class AsyncApiModel implements Serializable{
 	@Autowired
 	private MethodAsync methodAsync;
 	
-	public String getRestModel(String nameUser, boolean isMen) throws Exception {
+	public StringBuilder getRestModel(String nameUser, boolean isMen) throws Exception {
 		
-		log.info("Inicio del Modelo: "+ ConfigAsync.getNameMethod());
+		log.info("INICIO DEL MODELO: "+ ConfigAsync.getNameMethod());
 		
-		StringBuilder sms = new StringBuilder();
+		StringBuilder response = new StringBuilder();
 		
-		if (isMen) {
-			sms.append("Bienvenido Señor ");
-		} else {
-			sms.append("Bienvenido Señora ");
+		try {
+			
+			if (isMen) {
+				response.append("BIENVENIDO SEÑOR ");
+			} else {
+				response.append("BIENVENIDO SEÑORA ");
+			}
+			response.append(nameUser);
+			response.append(", A LA PRUEBA DE API REST CON METODOS ASINCRONOS.");
+			log.info(response.toString());
+			log.info("PREPARECE PARA LA EXPERIENCIA QUE COMIENZA AHORA...");
+			
+			methodAsync.processAsync(ConfigAsync.numPetitionCount);
+			
+			response.append("\nPETICIÓN EXITOSA - FUE ACTIVADO EL PROCESO ASINCRONO, VISUALICE LOS LOGS Y ESPERE CON CALMA A QUE FINALICE.");
+			
+		} catch (Exception e) {
+			log.info("EXCEPTION: ERROR EN EL PROCESO.");
+			response.append("\\nERROR AL EJECUTAR LOS PROCESOS. EXCEPTION GENERADA: ");
+			response.append(e.getMessage());
+		
 		}
-		sms.append(nameUser);
-		sms.append(" a la prueba de API Rest con metodos Asincronos.");
-		log.info(sms.toString());
-		log.info("Preparece para la experiencia que comienza ahora...");
-		
-		methodAsync.processAsync();
-		
-		String response = "PETICIÓN EXITOSA - FUE ACTIVADO EL PROCESO ASINCRONO, VISUALICE LOS LOGS Y ESPERE CON CALMA A QUE FINALICE.";
 		
 		return response;
 	}
